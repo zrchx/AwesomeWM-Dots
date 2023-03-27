@@ -14,14 +14,14 @@ local wibox = require("wibox")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 -- Widgets --
-local clock = require("ui.bars.clock")
+local clock = require("ui.panel.clock")
 -- =============================================
 
 -- ===========================================
 --                 Wibar                    --
 -- ===========================================
 awful.screen.connect_for_each_screen(function(s)
-    local taglist = require("ui.bars.taglist")(s)
+    local taglist = require("ui.panel.taglist")(s)
     -- Create wibar
     s.bar_top = awful.wibar({
       screen = s,

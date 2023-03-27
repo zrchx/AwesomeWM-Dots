@@ -31,7 +31,7 @@ local indicator = wibox.widget{
     widget = wibox.container.background,
     bg = beautiful.accent_0,
     forced_height = dpi(2),
-    visible = true  
+    visible = true
   }
 -- Widget
 local widget_box = wibox.widget{

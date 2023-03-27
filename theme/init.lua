@@ -26,7 +26,7 @@ local theme = {}
 theme.font = "AestheticIosevka Regular 11"
 theme.font_alt = "AestheticIosevka Bold 13"
 theme.font_mod = "AestheticIosevka"
-theme.icon_font = "Symbols Nerd Font Bold 48"
+theme.icon_font = "Symbols Nerd Font"
 -- ==========================================
 
 -- ==========================================
@@ -66,7 +66,7 @@ theme.accent_1 = colors.magenta_1
 -- ==========================================
 -- Icons --
 theme.icon_theme = 'Crule-dark'
-theme.systray_icon_size = dpi(16)
+theme.systray_icon_size = dpi(24)
 -- ==========================================
 
 -- ==========================================
@@ -79,18 +79,6 @@ theme.border_width = dpi(2)
 theme.border_color_normal = colors.bg_0
 theme.border_color_active = colors.bg_0
 theme.border_color_marked = colors.bg_0
--- ==========================================
-
--- ==========================================
--- Layout list Theme
-theme.layoutlist_bg = colors.bg_0
-theme.layoutlist_bg_selected = colors.bg_2
-
-theme.layoutlist_fg = colors.fg_0
-theme.layoutlist_fg_selected = colors.blue_0
-
-theme.layoutlist_shape = shorten.rrect(dpi(4))
-theme.layoutlist_shape_selected = shorten.rrect(dpi(8))
 -- ==========================================
 
 -- ==========================================
@@ -111,41 +99,10 @@ theme.taglist_shape = shorten.rrect(6)
 -- ==========================================
 
 -- ==========================================
--- Wibar's theme --
-theme.wibar_bg = colors.bg_0
-theme.wibar_fg = colors.fg_1
-theme.wibar_type = "dock"
-theme.wibar_shape = shorten.rrect(4)
--- ==========================================
-
--- ==========================================
--- Dock theme
-theme.awesome_dock_size = 80
-theme.awesome_dock_pinned = {
-    {"alacritty"},
-    {"firefox"},
-    {"spotify"},
-    {"lxappearance"},
-    {"nemo"}
-  }
-theme.awesome_dock_color_active = theme.accent_1
--- ==========================================
-
--- ==========================================
--- Notify's Theme --
-theme.notification_font = theme.font
-
-theme.notification_border_radius = dpi(theme.rounded)
-theme.notification_border_width = dpi(2)
-
-theme.notification_spacing = dpi(theme.useless_gap * 2)
-
-theme.notification_icon_size = 64
--- ==========================================
-
--- ==========================================
--- User Icon --
-theme.icon_pfp = config.."theme/images/photo.png"
+-- Titlebars
+theme.titlebars_enabled = true
+theme.titlebar_bg_focus = theme.bg_1
+theme.titlebar_bg_normal = theme.bg_0
 -- ==========================================
 
 -- ==========================================
@@ -153,11 +110,5 @@ theme.icon_pfp = config.."theme/images/photo.png"
 theme.layout_floating = config.."theme/images/floating.png"
 theme.layout_tile = config.."theme/images/tile.png"
 theme.layout_dwindle = config.."theme/images/dwindle.png"
--- ==========================================
-
--- ==========================================
--- Icons --
-theme.iconmenu = config.."theme/images/menu.png"
-theme.sysmenu = config.."theme/images/sysmenu.png"
 -- ==========================================
 require("beautiful").init(theme)

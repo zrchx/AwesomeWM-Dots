@@ -11,22 +11,59 @@
 -- Library's --
 local awful = require("awful")
 local wibox = require("wibox")
+local ruled = require("ruled")
+local gears = require("gears")
+local shorten = require("shorten")
+local beautiful = require("beautiful")
+local home = os.getenv("HOME").."/Pictures/Wallpapers"
 -- =============================================
 
 -- =============================================
 -- File inclusion --
 require("config.keys")
-require("config.misc")
-require("config.rules")
+-- =============================================
+
+-- =============================================
+-- Rounded corners
+local function rounding ()
+    client.connect_signal("request::manage", function (c, startup)
+      if not c.fullscreen and not c.maximized then
+        c.shape = shorten.rrect(beautiful.rounded)
+      end
+    end)
+    local function no_round_corners(c)
+      if c.fullscreen or c.maximized then
+        c.shape = nil
+      else
+        c.shape = shorten.rrect(beautiful.rounded)
+      end
+    end
+    client.connect_signal("property::fullscreen", no_round_corners)
+    client.connect_signal("property::maximized", no_round_corners)
+end
+rounding ()
 -- =============================================
 
 -- =============================================
 -- Wallpaper function
-screen.connect_signal("request::wallpaper", function(s)
+local function wallpaper ()
+  -- Locals to use
+  local bg = home.."/Wallpaper-2.png"
+  local hour = tonumber(os.date('%H%M'))
+  -- Redifine bg local
+  if hour < 1854 then
+    bg = home.."/Wallpaper-5.png"
+  elseif hour == 1854 then
+    bg = home.."/Wallpaper-3.png"
+  elseif hour > 1854 then
+    bg = home.."/Wallpaper-3.png"
+  end
+  -- Set Wallpaper
+  screen.connect_signal("request::wallpaper", function(s)
     awful.wallpaper {
       screen = s,
       widget = {
-        image = '/home/zrchx/Pictures/Wallpapers/Wallpaper-5.png',
+        image = bg,
         widget = wibox.widget.imagebox,
         upscale = true,
         downscale = true,
@@ -34,7 +71,15 @@ screen.connect_signal("request::wallpaper", function(s)
         vertical_fit_policy = "fit",
       }
     }
-end)
+  end)
+end
+-- Timer
+gears.timer {
+    timeout   = 1080,
+    call_now  = true,
+    autostart = true,
+    callback  = wallpaper
+  }
 -- =============================================
 
 -- ===========================================
@@ -45,20 +90,83 @@ tag.connect_signal("request::default_layouts", function()
     l.floating, l.tile, l.spiral.dwindle,
   })
 end)
--- Set tags --
+-- Set tags
 screen.connect_signal("request::desktop_decoration", function(s)
     awful.tag({"1","2","3",}, s, awful.layout.layouts[1])
 end)
 -- ===========================================
 
 -- =============================================
--- Enable sloppy focus, so that focus follows mouse.
+-- Sloppy focus --
 client.connect_signal("mouse::enter", function(c)
     c:activate { context = "mouse_enter", raise = false }
 end)
 -- =============================================
 
 -- =============================================
--- Autostart some apps
-awful.spawn.with_shell("sh ~/.config/awesome/config/start.sh")
+--              Rules And Clients             --
+ruled.client.connect_signal("request::rules", function()
+    ruled.client.append_rule {
+      id = "global",
+      rule = { },
+      properties = {
+        focus = awful.client.focus.filter,
+        raise = true,
+        screen = awful.screen.preferred,
+        placement = awful.placement.no_overlap+awful.placement.no_offscreen
+      }
+    }
+
+    -- Floating clients
+    ruled.client.append_rule {
+      id = "floating",
+      rule_any = {
+        class = { "Nemo","Spotify", "Lxappearance", "Viewnior", "Qalculate-gtk"},
+      },
+      properties = { floating = true }
+    }
+
+    -- Fullscren clients
+    ruled.client.append_rule {
+      id = "fullscren",
+      rule_any = {
+        class = { "Project Zomboid" },
+      },
+      properties = { fullscreen = true }
+    }
+
+    -- Tags related
+    -- Priority tag #1
+    ruled.client.append_rule {
+      rule = { class = "firefox"},
+      properties = { tag = "1" }
+    }
+    ruled.client.append_rule {
+      rule = { class = "Timeshitf-gtk"},
+      properties = { tag = "3" }
+    }
+    -- Priority tag #2
+    ruled.client.append_rule {
+      rule = { class = "Nemo"},
+      properties = { tag = "2" }
+    }
+    ruled.client.append_rule {
+      rule = { class = "Lxappearance"},
+      properties = { tag = "2" }
+    }
+    ruled.client.append_rule {
+      rule = { class = "Qalculate-gtk"},
+      properties = { tag = "2" }
+    }
+    -- Priority tag #3
+    ruled.client.append_rule {
+      rule = { class = "Spotify"},
+      properties = { tag = "3" }
+    }
+end)
+-- =============================================
+
+-- =============================================
+-- AutoStart
+awful.spawn.with_shell ( "picom --experimental-backends" )
 -- =============================================

@@ -12,14 +12,12 @@
 local gears = require("gears")
 -- =============================================
 local shorten = {}
-
 -- Create rounded rectangle shape
 shorten.rrect = function(radius)
     return function(cr, width, height)
       gears.shape.rounded_rect(cr, width, height, radius)
     end
 end
-
 -- Create partially rounded rect
 shorten.prrect = function(radius, tl, tr, br, bl)
     return function(cr, width, height)
@@ -27,14 +25,12 @@ shorten.prrect = function(radius, tl, tr, br, bl)
         tl, tr, br, bl,radius)
     end
 end
-
 -- Create rounded bar
 shorten.rbar = function(width, height)
     return function(cr)
       gears.shape.rounded_bar(cr, width, height)
     end
 end
-
 -- Markup 
 function shorten.text(txt, fg)
     if fg == "" then
@@ -42,6 +38,4 @@ function shorten.text(txt, fg)
     end
   return "<span foreground='" .. fg .. "'>" .. txt .. "</span>"
 end
-
-
 return shorten

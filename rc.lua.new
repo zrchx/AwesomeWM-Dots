@@ -11,7 +11,6 @@ pcall(require, "luarocks.loader")
 -- =============================================
 -- Library's --
 local gears = require("gears")
-local naughty = require("naughty")
 -- =============================================
 
 -- =============================================
@@ -21,18 +20,6 @@ require('config')
 require('theme')
 -- User Interface --
 require('ui')
--- =============================================
-
--- =============================================
--- Error handling --
-naughty.connect_signal("request::display_error", function(message, startup)
-  naughty.notification {
-    app_name = "AwesomeWM",
-    urgency = "critical",
-    title   = "LMAO, What you do?"..(startup and "during startup/restart!" or "!"),
-    message = message
-  }
-end)
 -- =============================================
 
 -- =============================================

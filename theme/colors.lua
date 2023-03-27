@@ -36,15 +36,9 @@ local colors = {}
     -- Base Orange
     colors.orange_0 = "#ff9e64"
     colors.orange_1 = "#fab387"
-    -- Base Yellow
-    colors.yellow_0 = "#e0af68"
-    colors.yellow_1 = "#e5c890"
     -- Base Green
     colors.green_0 = "#9ece6a"
     colors.green_1 = "#a6da95"
-    -- Base Teal
-    colors.teal_0 = "#73daca"
-    colors.teal_1 = "#81c8be"
     -- Base Blue
     colors.blue_0 = "#2ac3de"
     colors.blue_1 = "#7dcfff"
