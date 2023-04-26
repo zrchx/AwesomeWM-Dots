@@ -77,8 +77,8 @@ return function(s)
     beautiful.bg_1,
     beautiful.bg_3,
     dpi(0),
-    dpi(0),
-    dpi(0),
+    dpi(2),
+    beautiful.accent_0,
     shorten.rrect(beautiful.rounded - 2)
   )
   return button

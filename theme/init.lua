@@ -9,23 +9,48 @@
 
 -- ==========================================
 -- Library's --
-local xresources = require("beautiful.xresources")
-local dpi = xresources.apply_dpi
 local gears = require("gears")
 local shorten = require("shorten")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 -- Aliases --
 local config = gears.filesystem.get_configuration_dir()
 -- Colors
-local colors = require("theme.colors")
+local colors = {
+    -- Background Colors
+    bg_0 = "#02020A",
+    bg_1 = "#1a1b26",
+    bg_2 = "#24283B",
+    bg_3 = "#313244",
+    -- Foreground Colors
+    fg_0 = "#c6d0f5",
+    fg_1 = "#c0caf5",
+    fg_2 = "#a5adcb",
+    fg_3 = "#8a93b1",
+    -- Transparent
+    transparent = "#00000000",
+    -- Accent Colors
+    -- Red
+    red_0 = "#f5595c",
+    red_1 = "#f7768e",
+    -- Magenta
+    magenta_0 = "#bb9af7",
+    magenta_1 = "#ca9ee6",
+    -- Lavander
+    lavander_0 = "#7287fd",
+    lavander_1 = "#7aa2f7",
+  }
+
+
 -- ==========================================
 
 local theme = {}
 
 -- ==========================================
 -- Font --
-theme.font = "AestheticIosevka Regular 11"
-theme.font_alt = "AestheticIosevka Bold 13"
-theme.font_mod = "AestheticIosevka"
+theme.font = "CyberData Regular 11"
+theme.font_alt = "CyberData Bold 13"
+theme.font_mod = "CyberData"
 theme.icon_font = "Symbols Nerd Font"
 -- ==========================================
 
@@ -61,6 +86,7 @@ theme.fg_minimize = theme.fg_3
 -- Accent --
 theme.accent_0 = colors.magenta_0
 theme.accent_1 = colors.magenta_1
+theme.accent_2 = colors.magenta_2
 -- ==========================================
 
 -- ==========================================
@@ -72,29 +98,17 @@ theme.systray_icon_size = dpi(24)
 -- ==========================================
 -- Border Options --
 theme.useless_gap = dpi(8)
-
 theme.rounded = dpi(12)
-
-theme.border_width = dpi(2)
-theme.border_color_normal = colors.bg_0
-theme.border_color_active = colors.bg_0
-theme.border_color_marked = colors.bg_0
 -- ==========================================
 
 -- ==========================================
 -- Taglist Theme
 theme.taglist_bg = colors.bg_0
 theme.taglist_bg_focus = theme.accent_0
-theme.taglist_bg_urgent = colors.red_0
-theme.taglist_bg_occupied = colors.lavander_0
-theme.taglist_bg_empty = colors.fg_2
+theme.taglist_bg_occupied = theme.accent_1
+theme.taglist_bg_urgent = colors.yellow_0
+theme.taglist_bg_empty = colors.fg_3
 
-theme.taglist_fg_focus = theme.accent_1
-theme.taglist_fg_occupied = colors.yellow_0
-theme.taglist_fg_urgent = colors.orange_0
-theme.taglist_fg_empty = colors.lavander_1
-
-theme.taglist_disable_icon = true
 theme.taglist_shape = shorten.rrect(6)
 -- ==========================================
 

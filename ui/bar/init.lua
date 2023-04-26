@@ -11,17 +11,30 @@ _____ __ _ __ _____ _____ _____ _______ _____
 -- Library's --
 local awful = require("awful")
 local wibox = require("wibox")
-local xresources = require("beautiful.xresources")
-local dpi = xresources.apply_dpi
+local gears = require("gears")
+local shorten = require("shorten")
+local beautiful = require("beautiful")
+local dpi = beautiful.xresources.apply_dpi
 -- Widgets --
-local clock = require("ui.panel.clock")
+local clock = require("ui.bar.clock")
+local separator = wibox.widget{
+    shape = gears.shape.circle,
+    forced_height = dpi(6),
+    forced_width = dpi(8),
+    color = beautiful.bg_false,
+    widget = wibox.widget.separator,
+  }
+
+
+
 -- =============================================
 
 -- ===========================================
 --                 Wibar                    --
 -- ===========================================
 awful.screen.connect_for_each_screen(function(s)
-    local taglist = require("ui.panel.taglist")(s)
+    local taglist = require("ui.bar.taglist")(s)
+    local tasklist = require("ui.bar.tasklist")(s)
     -- Create wibar
     s.bar_top = awful.wibar({
       screen = s,
@@ -29,7 +42,7 @@ awful.screen.connect_for_each_screen(function(s)
       align = "centered",
       height = dpi(34),
       width = s.geometry.width - dpi(36),
-      y = dpi(4)
+      bg = beautiful.bg_false
     })
     -- Setup wibox
     s.bar_top:setup{
@@ -37,10 +50,13 @@ awful.screen.connect_for_each_screen(function(s)
 
       { -- Left widgets
       clock,
+      separator,
+      tasklist,
       layout = wibox.layout.align.horizontal,
       },
 
       { -- Middle widgets
+      separator,
       taglist,
       valign = "center",
       halign = "center",

@@ -45,17 +45,37 @@ rounding ()
 -- =============================================
 
 -- =============================================
+-- Borders
+local function borders ()
+    client.connect_signal("request::manage", function (c, startup)
+      if not c.fullscreen and not c.maximized then
+        c.border_width = 2
+      end
+    end)
+    local function bcolor (c)
+      if c.fullscreen or c.maximized then
+        c.border_color = beautiful.bg_false
+      else
+        c.border_color = beautiful.bg_0
+      end
+    end
+    client.connect_signal("property::border_color", bcolor)
+end
+borders ()
+-- =============================================
+
+-- =============================================
 -- Wallpaper function
 local function wallpaper ()
   -- Locals to use
   local bg = home.."/Wallpaper-2.png"
   local hour = tonumber(os.date('%H%M'))
   -- Redifine bg local
-  if hour < 1854 then
-    bg = home.."/Wallpaper-5.png"
-  elseif hour == 1854 then
+  if hour < 1425 then
     bg = home.."/Wallpaper-3.png"
-  elseif hour > 1854 then
+  elseif hour == 1425 then
+    bg = home.."/Wallpaper-3.png"
+  elseif hour > 1425 then
     bg = home.."/Wallpaper-3.png"
   end
   -- Set Wallpaper
@@ -130,7 +150,7 @@ ruled.client.connect_signal("request::rules", function()
     ruled.client.append_rule {
       id = "fullscren",
       rule_any = {
-        class = { "Project Zomboid" },
+        class = { "Project Zomboid", "Xonotic" },
       },
       properties = { fullscreen = true }
     }

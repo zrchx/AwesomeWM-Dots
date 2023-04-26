@@ -196,6 +196,7 @@ naughty.connect_signal("request::display", function(n)
           {
             {
               {
+                timeout,
                 notif_info,
                   {
                     {
